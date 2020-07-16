@@ -3,5 +3,6 @@ WORKDIR /app
 
 RUN apt-get update
 RUN apt-get install -y mingw-w64
+RUN apt-get install -y libpthread-stubs0-dev
 
-CMD echo $(pwd) && ls -al . && /bin/bash compile.sh
+CMD /bin/bash compile.sh
