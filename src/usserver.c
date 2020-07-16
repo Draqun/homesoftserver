@@ -1,7 +1,5 @@
-#include <config.h>
 #include "../include/usserver.h"
-#include <stdio.h>
-#include <pthread.h>
+#include <libxml/parser.h>
 
 static volatile int r1 = 0;
 
