@@ -1,0 +1,1 @@
+docker build -t cmpl . && docker run --rm -v %cd%:/app cmpl
