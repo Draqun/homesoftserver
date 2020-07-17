@@ -32,7 +32,11 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="README.md" />
+		<Unit filename="include/logs.h" />
 		<Unit filename="include/usserver.h" />
+		<Unit filename="src/logs.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/usserver.c">
 			<Option compilerVar="CC" />
 		</Unit>
