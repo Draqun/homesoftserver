@@ -1,8 +1,8 @@
 #include "../include/logs.h"
 
-bool disable_logger_flag = false;
+volatile bool disable_logger_flag = false;
 pthread_mutex_t log_m, flag_m;
-buffer_t logger;
+volatile buffer_t logger;
 
 void initilize_logger() {
     logger.buffer = (char**)malloc(sizeof(char*)*BUFFER_SIZE);
@@ -13,8 +13,7 @@ void initilize_logger() {
 void* enable_logger() {
     puts("Start logging\n");
 
-    pthread_mutex_lock(&flag_m);
-
+    pthread_mutex_lock(&flag_m);\
     while (!disable_logger_flag || logger.index >= 0) {
         if (logger.index >= 0) {
             pthread_mutex_lock(&log_m);
