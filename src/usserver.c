@@ -2,10 +2,9 @@
 
 
 int main() {
-    pthread_t logger;
+    pthread_t logger_thread;
 
     initilize_logger();
-    pthread_create(&logger, NULL, enable_logger, NULL);
     char log[10][50];
     for (int i=0; i < 10; ++i)
     {
@@ -13,7 +12,9 @@ int main() {
         add_log(&log[i]);
     }
     disable_logger();
-    pthread_join(logger, NULL);
+
+    pthread_create(&logger_thread, NULL, enable_logger, NULL);
+    pthread_join(logger_thread, NULL);
 
     return 0;
 }
