@@ -106,3 +106,5 @@ Makefile
 
 build/
 config.h.in~
+*pure
+*.depend

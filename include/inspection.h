@@ -7,7 +7,7 @@
 #include "logs.h"
 
 /**
-* Inspect all devices works correct
+*   Inspect all devices works correct
 */
 void inspect_devices();
 

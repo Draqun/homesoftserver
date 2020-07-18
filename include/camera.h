@@ -16,8 +16,13 @@ typedef struct camera_s {
 } camera_t;
 
 /**
-* Function initialize camera position and enable it.
+*   Function initialize camera position and enable it.
 */
 void initialize_camera(camera_t* camera, const char* id, int x, int y, int z);
+
+/**
+*   Change camera angles
+*/
+void change_camera_angles(camera_t* camera, int x, int y, int z);
 
 #endif // CAMERA_H

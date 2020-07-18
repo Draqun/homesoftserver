@@ -15,6 +15,12 @@ void disable_logger();
 #define BUFFER_SIZE 10
 #define LOG_SIZE 128
 
+#define LOG_MESSAGE(args...)    {\
+        char log[LOG_SIZE];\
+        sprintf(log, args);\
+        add_log(&log);\
+    }
+
 typedef struct buffer {
     int index;
     char** buffer;
