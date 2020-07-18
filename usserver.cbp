@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="usserver" />
+		<Option title="hsserver" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -31,13 +31,34 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Dockerfile" />
+		<Unit filename="LICENSE" />
+		<Unit filename="Makefile" />
 		<Unit filename="README.md" />
+		<Unit filename="include/camera.h" />
+		<Unit filename="include/command_io.h" />
+		<Unit filename="include/delay.h" />
+		<Unit filename="include/device_core.h" />
+		<Unit filename="include/devices.h" />
+		<Unit filename="include/hsserver.h" />
+		<Unit filename="include/inspection.h" />
 		<Unit filename="include/logs.h" />
-		<Unit filename="include/usserver.h" />
-		<Unit filename="src/logs.c">
+		<Unit filename="src/camera.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/usserver.c">
+		<Unit filename="src/command_io.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/devices.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/hsserver.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/inspection.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/logs.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
