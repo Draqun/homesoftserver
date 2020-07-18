@@ -5,7 +5,6 @@
 #include <string.h>
 
 #include "camera.h"
-#include "logs.h"
 
 #define CAMERAS 6
 #define BEDROOMS 3
@@ -21,10 +20,5 @@ extern volatile camera_t camera[CAMERAS];
 *   Function to initialize devices
 */
 void initialize_devices();
-
-/**
-* Function initialize camera position and enable it.
-*/
-void initialize_camera(camera_t* camera, const char* id, int x, int y, int z);
 
 #endif // DEVICES_H

@@ -7,6 +7,12 @@
 
 #include "delay.h"
 
+enum Command {
+    CHANGE_CAMERA_ANGLE,
+    GET_DEVICE_LAST_ERROR,
+    INXPECT_DEVICES,
+};
+
 /**
 * Run command listener to retrieve commands
 */
