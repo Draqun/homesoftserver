@@ -1,13 +1,10 @@
 # uStaticServer
 
-This simple application is a multithreaded server for static files.
+This simple application is a multithreaded server template.
 Application was created for educational purpose and should not be used in the production environments.
 
-## Compilation
-Program uses autotools for compilation.
-
-You can use docker container to do it. 
-From default compilation is made for Windows.
+## Project
+Project was created into Code::Blocks with mingw compiler.
 
 ## Author
 Email: damian.giebas@s.tu.koszalin.pl
