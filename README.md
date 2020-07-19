@@ -1,4 +1,4 @@
-# uStaticServer
+# HomeSoftServer
 
 This simple application is a multithreaded server template.
 Application was created for educational purpose and should not be used in the production environments.
