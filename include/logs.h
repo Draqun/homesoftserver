@@ -7,24 +7,39 @@
 #include <stdio.h>
 #include <string.h>
 
-void* enable_logger();
-void initilize_logger();
-void add_log(const char *log);
-void disable_logger();
-
 #define BUFFER_SIZE 10
 #define LOG_SIZE 128
 
-#define LOG_MESSAGE(args...)    {\
+#define LOG_MESSAGE(lvl, args...)\
+        {\
         char log[LOG_SIZE];\
         sprintf(log, args);\
-        add_log(&log);\
-    }
+        add_log((const char*)&log, lvl);\
+        }
 
-typedef struct buffer {
+
+enum LogLevel
+{
+    DEBUG = 1,
+    INFO,
+    WARNING,
+    ERROR,
+};
+
+
+typedef struct buffer
+{
     int index;
     char** buffer;
+    enum LogLevel log_levels[BUFFER_SIZE];
 } buffer_t;
+
+extern volatile enum LogLevel log_level;
+
+void* enable_logger(void *args);
+void initilize_logger();
+void add_log(const char *log, enum LogLevel level);
+void disable_logger();
 
 #endif // LOGS_H
 

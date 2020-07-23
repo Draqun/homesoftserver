@@ -35,8 +35,12 @@
 		<Unit filename="LICENSE" />
 		<Unit filename="Makefile" />
 		<Unit filename="README.md" />
+		<Unit filename="build_and_compile.bat" />
+		<Unit filename="build_and_compile.sh" />
+		<Unit filename="compile.sh" />
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/command_io.h" />
+		<Unit filename="include/commands.h" />
 		<Unit filename="include/delay.h" />
 		<Unit filename="include/device_core.h" />
 		<Unit filename="include/devices.h" />

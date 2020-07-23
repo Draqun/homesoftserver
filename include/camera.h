@@ -8,7 +8,8 @@
 
 #define CAMERA_INIT {{.id = "", .enabled = false, .error_msg = ""}, .x_angle = 0, .y_angle = 0, .z_angle = 0}
 
-typedef struct camera_s {
+typedef struct camera_s
+{
     device_core_t core;
     int x_angle;
     int y_angle;

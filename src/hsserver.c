@@ -1,12 +1,13 @@
 #include "../include/hsserver.h"
 
 
-int main() {
+int main()
+{
     pthread_t logger_thread, command_listener_thread;
+    log_level = DEBUG;
 
     initilize_logger();
     initialize_devices();
-    inspect_devices();
 
     pthread_create(&logger_thread, NULL, enable_logger, NULL);
     pthread_create(&command_listener_thread, NULL, command_listener, NULL);
