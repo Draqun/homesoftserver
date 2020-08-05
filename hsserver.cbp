@@ -31,6 +31,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename=".gitignore" />
+		<Unit filename="CMakeLists.txt" />
 		<Unit filename="Dockerfile" />
 		<Unit filename="LICENSE" />
 		<Unit filename="Makefile" />
