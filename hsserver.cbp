@@ -49,6 +49,7 @@
 		<Unit filename="include/hsserver.h" />
 		<Unit filename="include/inspection.h" />
 		<Unit filename="include/logs.h" />
+		<Unit filename="include/sensor.h" />
 		<Unit filename="src/camera.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -65,6 +66,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/logs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/sensor.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

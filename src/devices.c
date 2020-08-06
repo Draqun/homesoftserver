@@ -8,7 +8,7 @@
 *   5 - guest room camera
 */
 camera_t camera[CAMERAS] = {CAMERA_INIT, CAMERA_INIT, CAMERA_INIT, CAMERA_INIT, CAMERA_INIT, CAMERA_INIT};
-
+sensor_t sensor[SENSORS] = {SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT};
 
 static const char* get_device_last_error(device_core_t* device)
 {
@@ -88,7 +88,7 @@ void* device_action(void *args)
         break;
         }
 
-    case INXPECT_DEVICES: {
+    case GET_DEVICES_STATUS: {
         char **device_log = va_arg(*argv, char **);
         //LOG_MESSAGE(DEBUG, "Start of inspecting device");
         inspect_devices(device_log);

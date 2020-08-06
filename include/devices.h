@@ -11,6 +11,7 @@
 #include "inspection.h"
 
 #define CAMERAS 6
+#define SENSORS 6
 #define BEDROOMS 3
 #define KITECHEN_CAMERA 0
 #define BEDROOM_CAMERA_START 1
@@ -19,6 +20,7 @@
 #define GUEST_ROOM_CAMERA 5
 
 extern camera_t camera[CAMERAS];
+extern sensor_t sensor[SENSORS];
 
 /**
 *   Function to initialize devices
