@@ -90,14 +90,14 @@ void* device_action(void *args)
     switch (c)
     {
     case CHANGE_CAMERA_ANGLES: {
-        const char* id = va_arg(*argv, const char *);
+        const char *id = va_arg(*argv, const char*);
         change_camera_angles(get_device_by_id(id), va_arg(*argv, int), va_arg(*argv, int), va_arg(*argv, int));
         break;
         }
 
     case GET_DEVICE_LAST_ERROR: {
-        char *dest = va_arg(*argv, const char *);
-        const char* id = va_arg(*argv, const char *);
+        char *dest = va_arg(*argv, const char*);
+        const char *id = va_arg(*argv, const char*);
 
         LOG_MESSAGE(DEBUG, "Getting device %s last error", id);
         sprintf(dest, get_device_last_error((device_core_t*)get_device_by_id(id)));
@@ -105,16 +105,14 @@ void* device_action(void *args)
         }
 
     case GET_DEVICES_STATUS: {
-        char **device_log = va_arg(*argv, char **);
-        LOG_MESSAGE(DEBUG, "Getting devices status");
-        get_cameras_status(device_log);
+        char *devices_log = va_arg(*argv, char*);
+        get_cameras_status(devices_log);
         break;
         }
 
     case GET_SENSORS_STATUS: {
-        char **device_log = va_arg(*argv, char **);
-        LOG_MESSAGE(DEBUG, "Getting sensors status");
-        get_sensors_status(device_log);
+        char *sensors_log = va_arg(*argv, char*);
+        get_sensors_status(sensors_log);
         break;
         }
 

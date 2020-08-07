@@ -9,11 +9,11 @@
 /**
 *   Get all cameras status
 */
-void get_cameras_status(char **devices_log);
+void get_cameras_status(char *cameras_log);
 
 /**
 *   Get all sensors status
 */
-void get_sensors_status(char **sensors_log);
+void get_sensors_status(char *sensors_log);
 
 #endif // INSPECTION_H

@@ -14,7 +14,7 @@ void *command_listener(void *args)
         {
             DELAY(9);
             char error_msg[DEVICE_ERROR_MSG_SIZE];
-            run_task(3, GET_DEVICE_LAST_ERROR, &error_msg, "0x001");
+            run_task(3, GET_DEVICE_LAST_ERROR, error_msg, "0x001");
             if (strcmp(error_msg, ""))
             {
                 LOG_MESSAGE(ERROR, "Error message: %s", error_msg);
@@ -23,34 +23,22 @@ void *command_listener(void *args)
 
         {
             DELAY(9);
-            char **devices_status = (char**)NULL;
+            char devices_status[CAMERAS*LOG_SIZE] = "";
             {
-                run_task(2, GET_DEVICES_STATUS, devices_status);
+                run_task(2, GET_DEVICES_STATUS, &devices_status);
                 LOG_MESSAGE(INFO, "Devices inspected");
+                printf("Result: %s", devices_status);
             }
-            for (int i=0; i < CAMERAS && devices_status && devices_status[i]; ++i)
-            {
-                printf("Result: %s\n", devices_status[i]);
-                free(devices_status[i]);
-            }
-            free(devices_status);
         }
 
         {
             DELAY(9);
-            char **sensors_status = (char**)NULL;
+            char sensors_status[SENSORS*LOG_SIZE] = "";
             {
                 run_task(2, GET_SENSORS_STATUS, sensors_status);
                 LOG_MESSAGE(INFO, "Sensors inspected");
+                printf("Result: %s", sensors_status);
             }
-            printf("%d\n", sensors_status);
-            for (int i=0; i < SENSORS && sensors_status && sensors_status[i]; ++i)
-            {
-                printf("Result: %s\n", sensors_status[i]);
-                free(sensors_status[i]);
-            }
-            free(sensors_status);
-
         }
     }
     return (void*)NULL;

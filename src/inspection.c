@@ -1,17 +1,14 @@
 #include "../include/inspection.h"
 
-void get_cameras_status(char **devices_log)
+void get_cameras_status(char *cameras_log)
 {
     LOG_MESSAGE(DEBUG, "Getting devices status");
-    devices_log = (char**)malloc(sizeof(char*)*CAMERAS);
-    if (!devices_log)
-    {
-        return;
-    }
+    const size_t status_msg_size = 16;
+    char device_status[status_msg_size];
 
     for (int i = 0; i < CAMERAS; ++i)
     {
-        char device_status[LOG_SIZE];
+        char camera_log[LOG_SIZE];
         if (!camera[i].core.enabled)
         {
             strcpy(device_status, "disabled");
@@ -23,29 +20,20 @@ void get_cameras_status(char **devices_log)
             strcpy(device_status, "enabled");
         }
 
-        devices_log[i] = (char*)malloc(sizeof(char)*LOG_SIZE);
-        if (!devices_log[i])
-        {
-            LOG_MESSAGE(ERROR, "Cannot allocate enough memory for camera with id %s", sensor[i].core.id)
-            continue;
-        }
-
-        sprintf(devices_log[i], "Camera %s is %s", camera[i].core.id, device_status);
+        sprintf(camera_log, "Camera %s is %s - X=%d Y=%d Z=%d\n", camera[i].core.id, device_status, camera[i].x_angle, camera[i].y_angle, camera[i].z_angle);
+        strcat(cameras_log, camera_log);
     }
 }
 
-void get_sensors_status(char **sensors_log)
+void get_sensors_status(char *sensors_log)
 {
     LOG_MESSAGE(DEBUG, "Getting sensors status");
-    sensors_log  = (char**)malloc(sizeof(char*)*SENSORS);
-    if (!sensors_log)
-    {
-        return;
-    }
+    const size_t status_msg_size = 16;
+    char device_status[status_msg_size];
 
-    for (int i = 0; i < SENSORS; ++i)
+    for (size_t i = 0; i < SENSORS; ++i)
     {
-        char device_status[LOG_SIZE];
+        char sensor_log[LOG_SIZE];
         if (!sensor[i].core.enabled)
         {
             strcpy(device_status, "disabled");
@@ -57,14 +45,7 @@ void get_sensors_status(char **sensors_log)
             strcpy(device_status, "enabled");
         }
 
-        sensors_log[i] = (char*)malloc(sizeof(char)*LOG_SIZE);
-        if (!sensors_log[i])
-        {
-            LOG_MESSAGE(ERROR, "Cannot allocate enough memory for sensor with id %s", sensor[i].core.id)
-            continue;
-        }
-
-        sprintf(sensors_log[i], "Sensor %s is %s", sensor[i].core.id, device_status);
-        printf("%s\n", sensors_log[i]);
+        sprintf(sensor_log, "Sensor %s is %s - Current value=%d Offset=%d Last incorrect value=%d \n", sensor[i].core.id, device_status, sensor[i].value, sensor[i].offset, sensor[i].last_incorrect_value);
+        strcat(sensors_log, sensor_log);
     }
 }

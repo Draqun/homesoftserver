@@ -8,7 +8,7 @@
 #include <string.h>
 
 #define BUFFER_SIZE 256
-#define LOG_SIZE 128
+#define LOG_SIZE 2048
 
 #define LOG_MESSAGE(lvl, args...)\
         {\
