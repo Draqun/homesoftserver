@@ -33,11 +33,7 @@ void* enable_logger(void *args)
                 if (logger.buffer[i] != (char*)NULL)
                 {
                     const size_t log_lvl_str_index = (size_t)logger.log_levels[i] - 1;
-//                    printf("I: %d %d %d", log_lvl_str_index, (size_t)logger.log_levels[i], log_level);
-                    if (logger.log_levels[i] >= log_level)
-                    {
-                        printf("LOG:%s:%s\n", log_lvl_str[log_lvl_str_index], logger.buffer[i]);
-                    }
+                    printf("LOG:%s:%s\n", log_lvl_str[log_lvl_str_index], logger.buffer[i]);
                     free(logger.buffer[i]);
                     logger.buffer[i] = (char*)NULL;
                 }
@@ -55,7 +51,7 @@ void add_log(const char *log, enum LogLevel level)
 {
     char *llog = (char*)malloc(sizeof(char)*strlen(log));
     strcpy(llog, log);
-    if (logger.index >= BUFFER_SIZE) return;
+    if (logger.index >= BUFFER_SIZE || log_level > level) return;
 
     pthread_mutex_lock(&log_m);
 

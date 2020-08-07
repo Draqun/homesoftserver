@@ -4,11 +4,13 @@
 enum Command {
     CHANGE_CAMERA_ANGLES,
     GET_DEVICE_LAST_ERROR,
-    INXPECT_DEVICES,
+    GET_DEVICES_STATUS,
+    GET_SENSORS_STATUS,
 };
 
 enum DeviceType {
     CAMERA,
+    SENSOR,
 };
 
 #endif // COMMANDS_H

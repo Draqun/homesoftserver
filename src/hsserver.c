@@ -4,7 +4,7 @@
 int main()
 {
     pthread_t logger_thread, command_listener_thread;
-    log_level = DEBUG;
+    log_level = INFO;
 
     initilize_logger();
     initialize_devices();

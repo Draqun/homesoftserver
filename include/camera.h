@@ -1,8 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <stdbool.h>
-
 #include "device_core.h"
 #include "logs.h"
 

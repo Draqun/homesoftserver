@@ -14,6 +14,7 @@ set(SOURCE_FILES_LIST
     src/hsserver.c
     src/inspection.c
     src/logs.c
+    src/sensor.c
 )
 
 set(HEADER_FILES_LIST
@@ -26,6 +27,7 @@ set(HEADER_FILES_LIST
     include/hsserver.h
     include/inspection.h
     include/logs.h
+    include/sensor.h
 )
 
 add_executable(${PROJECT_NAME}

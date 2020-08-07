@@ -1,6 +1,8 @@
 #ifndef DEVICE_CORE
 #define DEVICE_CORE
 
+#include <stdbool.h>
+
 #define DEVICE_ID_SIZE 64
 #define DEVICE_ERROR_MSG_SIZE 128
 
