@@ -2,7 +2,7 @@
 
 void initialize_sensor(sensor_t* sensor, const char* id, int value, int offset)
 {
-    LOG_MESSAGE(DEBUG, "Starting initialization sensor: %s", id);
+    LOG_MESSAGE(INFO, "Starting initialization sensor: %s", id);
 
     sensor->value = value;
     sensor->last_incorrect_value = 0;

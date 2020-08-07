@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 256
 #define LOG_SIZE 128
 
 #define LOG_MESSAGE(lvl, args...)\
@@ -17,7 +17,6 @@
         add_log((const char*)&log, lvl);\
         }
 
-
 enum LogLevel
 {
     DEBUG = 1,
@@ -25,7 +24,6 @@ enum LogLevel
     WARNING,
     ERROR,
 };
-
 
 typedef struct buffer
 {

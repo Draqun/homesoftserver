@@ -25,12 +25,12 @@ void *command_listener(void *args)
             DELAY(9);
             char **devices_status = (char**)NULL;
             {
-            run_task(2, GET_DEVICES_STATUS, devices_status);
-            LOG_MESSAGE(DEBUG, "Devices inspected");
+                run_task(2, GET_DEVICES_STATUS, devices_status);
+                LOG_MESSAGE(INFO, "Devices inspected");
             }
             for (int i=0; i < CAMERAS && devices_status && devices_status[i]; ++i)
             {
-                printf("%s", devices_status[i]);
+                printf("Result: %s\n", devices_status[i]);
                 free(devices_status[i]);
             }
             free(devices_status);
@@ -39,8 +39,17 @@ void *command_listener(void *args)
         {
             DELAY(9);
             char **sensors_status = (char**)NULL;
-            run_task(2, GET_SENSORS_STATUS, sensors_status);
-            LOG_MESSAGE(DEBUG, "Sensors inspected");
+            {
+                run_task(2, GET_SENSORS_STATUS, sensors_status);
+                LOG_MESSAGE(INFO, "Sensors inspected");
+            }
+            printf("%d\n", sensors_status);
+            for (int i=0; i < SENSORS && sensors_status && sensors_status[i]; ++i)
+            {
+                printf("Result: %s\n", sensors_status[i]);
+                free(sensors_status[i]);
+            }
+            free(sensors_status);
 
         }
     }

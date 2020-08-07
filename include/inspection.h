@@ -7,8 +7,13 @@
 #include "logs.h"
 
 /**
-*   Inspect all devices works correct
+*   Get all cameras status
 */
-void inspect_devices(char **device_log);
+void get_cameras_status(char **devices_log);
+
+/**
+*   Get all sensors status
+*/
+void get_sensors_status(char **sensors_log);
 
 #endif // INSPECTION_H

@@ -2,7 +2,7 @@
 
 void initialize_camera(camera_t* camera, const char* id, int x, int y, int z)
 {
-    LOG_MESSAGE(DEBUG, "Starting initialization camera: %s", id);
+    LOG_MESSAGE(INFO, "Starting initialization camera: %s", id);
 
     camera->x_angle = x;
     camera->y_angle = y;

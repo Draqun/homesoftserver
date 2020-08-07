@@ -1,14 +1,14 @@
 #include "../include/devices.h"
 
 /**
-*   Table with camera devices
-*   0 - kitchen camera
-*   1-3 - bedrooms cameras
-*   4 - daily room camera
-*   5 - guest room camera
+*   Table with room numbers
+*   0 - kitchen
+*   1-3 - bedrooms
+*   4 - daily room
+*   5 - guest room
 */
 camera_t camera[CAMERAS] = {CAMERA_INIT, CAMERA_INIT, CAMERA_INIT, CAMERA_INIT, CAMERA_INIT, CAMERA_INIT};
-sensor_t sensor[SENSORS] = {SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT};
+sensor_t sensor[SENSORS] = {SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT, SENSOR_INIT};
 
 static const char* get_device_last_error(device_core_t* device)
 {
@@ -37,32 +37,47 @@ void initialize_devices()
 {
     LOG_MESSAGE(INFO, "Starting devices initialization");
     char camera_id[DEVICE_ID_SIZE];
+    char sensor_id[DEVICE_ID_SIZE];
 
-    if (!camera[KITECHEN_CAMERA].core.enabled)
+    if (!camera[KITECHEN].core.enabled)
     {
-        sprintf(camera_id, "0x00%d", 0);
-        initialize_camera(&camera[KITECHEN_CAMERA], camera_id, 90, -45, -45);
+        sprintf(camera_id, "0x00%d", KITECHEN);
+        sprintf(sensor_id, "0x00%d", KITECHEN);
+        initialize_camera(&camera[KITECHEN], camera_id, 90, -45, -45);
+        initialize_sensor(&sensor[KITECHEN], sensor_id, 38, 2);
     }
 
-    for (int i = BEDROOM_CAMERA_START; i < BEDROOM_CAMERA_STOP; ++i)
+    for (int i = BEDROOM_START; i <= BEDROOM_STOP; ++i)
     {
         if (camera[i].core.enabled) continue;
 
         sprintf(camera_id, "0x00%d", i);
+        sprintf(sensor_id, "0x00%d", i);
         initialize_camera(&camera[i], camera_id, 45, -45, -35);
+        initialize_sensor(&sensor[i], sensor_id, 30, 2);
     }
 
-    if (!camera[DAILY_ROOM_CAMERA].core.enabled)
+    if (!camera[DAILY_ROOM].core.enabled)
     {
-        sprintf(camera_id, "0x00%d", DAILY_ROOM_CAMERA);
-        initialize_camera(&camera[DAILY_ROOM_CAMERA], camera_id, 90, -45, -45);
+        sprintf(camera_id, "0x00%d", DAILY_ROOM);
+        sprintf(sensor_id, "0x00%d", DAILY_ROOM);
+        initialize_camera(&camera[DAILY_ROOM], camera_id, 90, -45, -45);
+        initialize_sensor(&sensor[DAILY_ROOM], sensor_id, 30, 3);
     }
 
-    if (!camera[GUEST_ROOM_CAMERA].core.enabled)
+    if (!camera[GUEST_ROOM].core.enabled)
     {
-        sprintf(camera_id, "0x00%d", GUEST_ROOM_CAMERA);
-        initialize_camera(&camera[GUEST_ROOM_CAMERA], camera_id, 90, -45, -45);
+        sprintf(camera_id, "0x00%d", GUEST_ROOM);
+        sprintf(sensor_id, "0x00%d", GUEST_ROOM);
+        initialize_camera(&camera[GUEST_ROOM], camera_id, 90, -45, -45);
+        initialize_sensor(&sensor[GUEST_ROOM], sensor_id, 30, 3);
     }
+
+    sprintf(sensor_id, "0x00%d", TOILET);
+    initialize_sensor(&sensor[TOILET], sensor_id, 30, 3);
+    sprintf(sensor_id, "0x00%d", BATHROOM);
+    initialize_sensor(&sensor[BATHROOM], sensor_id, 40, 4);
+
     LOG_MESSAGE(INFO, "Devices initialized");
 }
 
@@ -84,15 +99,22 @@ void* device_action(void *args)
         char *dest = va_arg(*argv, const char *);
         const char* id = va_arg(*argv, const char *);
 
+        LOG_MESSAGE(DEBUG, "Getting device %s last error", id);
         sprintf(dest, get_device_last_error((device_core_t*)get_device_by_id(id)));
         break;
         }
 
     case GET_DEVICES_STATUS: {
         char **device_log = va_arg(*argv, char **);
-        //LOG_MESSAGE(DEBUG, "Start of inspecting device");
-        inspect_devices(device_log);
-        LOG_MESSAGE(DEBUG, "End of inspecting device");
+        LOG_MESSAGE(DEBUG, "Getting devices status");
+        get_cameras_status(device_log);
+        break;
+        }
+
+    case GET_SENSORS_STATUS: {
+        char **device_log = va_arg(*argv, char **);
+        LOG_MESSAGE(DEBUG, "Getting sensors status");
+        get_sensors_status(device_log);
         break;
         }
 
