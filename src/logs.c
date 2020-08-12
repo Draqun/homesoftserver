@@ -43,7 +43,11 @@ void* enable_logger(void *args)
         }
     }
     pthread_mutex_unlock(&flag_m);
+
+    pthread_mutex_lock(&log_m);
     free(logger.buffer);
+    pthread_mutex_unlock(&log_m);
+
     return (void*)NULL;
 }
 

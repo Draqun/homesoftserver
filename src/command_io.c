@@ -41,6 +41,7 @@ void *command_listener(void *args)
             }
         }
     }
+    disable_logger();
     return (void*)NULL;
 }
 

@@ -13,9 +13,6 @@ int main()
     pthread_create(&command_listener_thread, NULL, command_listener, NULL);
 
     pthread_join(command_listener_thread, NULL);
-
-
-    disable_logger();
     pthread_join(logger_thread, NULL);
 
     return 0;
