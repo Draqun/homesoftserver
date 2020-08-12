@@ -1,0 +1,32 @@
+From d382d75906eedb5b04d0c522b7298e2ca879ee5a Mon Sep 17 00:00:00 2001
+From: Damian Giebas <damian.giebas@gmail.com>
+Date: Wed, 12 Aug 2020 19:44:21 +0200
+Subject: [PATCH] Introducing race condition.
+
+---
+ src/logs.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/logs.c b/src/logs.c
+index d4b46b9..6094eda 100644
+--- a/src/logs.c
++++ b/src/logs.c
+@@ -27,7 +27,6 @@ void* enable_logger(void *args)
+     {
+         if (logger.index >= 0)
+         {
+-            pthread_mutex_lock(&log_m);
+             for (int i = 0; i <= logger.index; ++i)
+             {
+                 if (logger.buffer[i] != (char*)NULL)
+@@ -39,7 +38,6 @@ void* enable_logger(void *args)
+                 }
+             }
+             logger.index = -1;
+-            pthread_mutex_unlock(&log_m);
+         }
+     }
+     pthread_mutex_unlock(&flag_m);
+-- 
+2.19.0.windows.1
+

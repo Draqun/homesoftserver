@@ -1,7 +1,7 @@
 #include "../include/logs.h"
 
 volatile bool disable_logger_flag = false;
-pthread_mutex_t log_m, flag_m;
+pthread_mutex_t log_m, flag_m, buf_index_m;
 volatile buffer_t logger;
 volatile enum LogLevel log_level = DEBUG;
 
@@ -28,6 +28,7 @@ void* enable_logger(void *args)
         if (logger.index >= 0)
         {
             pthread_mutex_lock(&log_m);
+            pthread_mutex_lock(&buf_index_m);
             for (int i = 0; i <= logger.index; ++i)
             {
                 if (logger.buffer[i] != (char*)NULL)
@@ -39,6 +40,7 @@ void* enable_logger(void *args)
                 }
             }
             logger.index = -1;
+            pthread_mutex_unlock(&buf_index_m);
             pthread_mutex_unlock(&log_m);
         }
     }
@@ -58,12 +60,14 @@ void add_log(const char *log, enum LogLevel level)
     if (logger.index >= BUFFER_SIZE || log_level > level) return;
 
     pthread_mutex_lock(&log_m);
+    pthread_mutex_lock(&buf_index_m);
 
     ++logger.index;
     logger.buffer[logger.index % BUFFER_SIZE] = llog;
     logger.log_levels[logger.index % BUFFER_SIZE] = level;
     logger.index = logger.index % BUFFER_SIZE;
 
+    pthread_mutex_unlock(&buf_index_m);
     pthread_mutex_unlock(&log_m);
 }
 
