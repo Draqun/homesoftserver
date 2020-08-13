@@ -109,3 +109,5 @@ config.h.in~
 *pure
 *.depend
 *.layout
+CMakeCache.txt
+CMakeFiles/*

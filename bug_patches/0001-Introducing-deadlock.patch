@@ -1,0 +1,26 @@
+From 0bdf42231ac937110259d9f8e82ac783f6bb4bcf Mon Sep 17 00:00:00 2001
+From: Damian Giebas <damian.giebas@gmail.com>
+Date: Thu, 13 Aug 2020 18:07:26 +0200
+Subject: [PATCH] Introducing deadlock
+
+---
+ src/logs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/logs.c b/src/logs.c
+index d5e95f6..3db6569 100644
+--- a/src/logs.c
++++ b/src/logs.c
+@@ -59,8 +59,8 @@ void add_log(const char *log, enum LogLevel level)
+     strcpy(llog, log);
+     if (logger.index >= BUFFER_SIZE || log_level > level) return;
+ 
+-    pthread_mutex_lock(&log_m);
+     pthread_mutex_lock(&buf_index_m);
++    pthread_mutex_lock(&log_m);
+ 
+     ++logger.index;
+     logger.buffer[logger.index % BUFFER_SIZE] = llog;
+-- 
+2.19.0.windows.1
+
