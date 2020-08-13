@@ -22,13 +22,18 @@ void initilize_logger()
 
 void* enable_logger(void *args)
 {
-    pthread_mutex_lock(&flag_m);
-    while (!disable_logger_flag || logger.index >= 0)
+    bool is_running = true;
+    while (is_running || logger.index >= 0)
     {
+        pthread_mutex_lock(&flag_m);
+        is_running = !disable_logger_flag;
+        pthread_mutex_unlock(&flag_m);
+
         if (logger.index >= 0)
         {
             pthread_mutex_lock(&log_m);
             pthread_mutex_lock(&buf_index_m);
+
             for (int i = 0; i <= logger.index; ++i)
             {
                 if (logger.buffer[i] != (char*)NULL)
@@ -44,7 +49,6 @@ void* enable_logger(void *args)
             pthread_mutex_unlock(&log_m);
         }
     }
-    pthread_mutex_unlock(&flag_m);
 
     pthread_mutex_lock(&log_m);
     free(logger.buffer);
