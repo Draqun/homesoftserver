@@ -59,8 +59,8 @@ void add_log(const char *log, enum LogLevel level)
     strcpy(llog, log);
     if (logger.index >= BUFFER_SIZE || log_level > level) return;
 
-    pthread_mutex_lock(&log_m);
     pthread_mutex_lock(&buf_index_m);
+    pthread_mutex_lock(&log_m);
 
     ++logger.index;
     logger.buffer[logger.index % BUFFER_SIZE] = llog;
