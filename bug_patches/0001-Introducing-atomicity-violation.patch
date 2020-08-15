@@ -1,0 +1,35 @@
+From 892d748a6f12267ebb1dc111c9d63e1d00c58a37 Mon Sep 17 00:00:00 2001
+From: Damian Giebas <damian.giebas@gmail.com>
+Date: Sat, 15 Aug 2020 12:39:38 +0200
+Subject: [PATCH] Introducing atomicity violation.
+
+---
+ src/logs.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/logs.c b/src/logs.c
+index 2992f6e..aef1aa5 100644
+--- a/src/logs.c
++++ b/src/logs.c
+@@ -65,12 +65,16 @@ void add_log(const char *log, enum LogLevel level)
+ 
+     pthread_mutex_lock(&log_m);
+     pthread_mutex_lock(&buf_index_m);
+-
+     ++logger.index;
+     logger.buffer[logger.index % BUFFER_SIZE] = llog;
+     logger.log_levels[logger.index % BUFFER_SIZE] = level;
+-    logger.index = logger.index % BUFFER_SIZE;
++    pthread_mutex_unlock(&buf_index_m);
++    pthread_mutex_unlock(&log_m);
+ 
++
++    pthread_mutex_lock(&log_m);
++    pthread_mutex_lock(&buf_index_m);
++    logger.index = logger.index % BUFFER_SIZE;
+     pthread_mutex_unlock(&buf_index_m);
+     pthread_mutex_unlock(&log_m);
+ }
+-- 
+2.19.0.windows.1
+
