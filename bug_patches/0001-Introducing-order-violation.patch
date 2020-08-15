@@ -1,0 +1,35 @@
+From c623c83736caf9f70d7abadb1394176927e0240e Mon Sep 17 00:00:00 2001
+From: Damian Giebas <damian.giebas@gmail.com>
+Date: Sat, 15 Aug 2020 15:38:40 +0200
+Subject: [PATCH] Introducing order violation.
+
+---
+ src/hsserver.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/hsserver.c b/src/hsserver.c
+index 9d1dace..62dd80c 100644
+--- a/src/hsserver.c
++++ b/src/hsserver.c
+@@ -3,15 +3,15 @@
+ 
+ int main()
+ {
+-    pthread_t logger_thread, command_listener_thread;
++    pthread_t logger_thread, command_listener_thread, initialize_devices_thread;
+     log_level = INFO;
+ 
+     initilize_logger();
+-    initialize_devices();
+-
++    pthread_create(&initialize_devices_thread, NULL, initialize_devices, NULL);
+     pthread_create(&logger_thread, NULL, enable_logger, NULL);
+     pthread_create(&command_listener_thread, NULL, command_listener, NULL);
+ 
++    pthread_join(initialize_devices_thread, NULL);
+     pthread_join(command_listener_thread, NULL);
+     pthread_join(logger_thread, NULL);
+ 
+-- 
+2.19.0.windows.1
+
