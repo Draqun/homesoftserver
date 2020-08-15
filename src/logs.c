@@ -65,12 +65,16 @@ void add_log(const char *log, enum LogLevel level)
 
     pthread_mutex_lock(&log_m);
     pthread_mutex_lock(&buf_index_m);
-
     ++logger.index;
     logger.buffer[logger.index % BUFFER_SIZE] = llog;
     logger.log_levels[logger.index % BUFFER_SIZE] = level;
-    logger.index = logger.index % BUFFER_SIZE;
+    pthread_mutex_unlock(&buf_index_m);
+    pthread_mutex_unlock(&log_m);
 
+
+    pthread_mutex_lock(&log_m);
+    pthread_mutex_lock(&buf_index_m);
+    logger.index = logger.index % BUFFER_SIZE;
     pthread_mutex_unlock(&buf_index_m);
     pthread_mutex_unlock(&log_m);
 }
